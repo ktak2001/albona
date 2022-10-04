@@ -1,9 +1,9 @@
-import {useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import Board from "./Board";
 import { Grid, Box, IconButton } from "@mui/material";
 import { PanoramaFishEye, Close } from "@mui/icons-material";
 
-export default function Game() {
+export default function Game({user}) {
 	const [states, setStates] = useState({
 		history: [
 			{

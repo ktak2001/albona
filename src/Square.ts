@@ -1,4 +1,5 @@
 import { Grid, Box, IconButton, Button } from "@mui/material";
+import React from 'react'
 // import { PanoramaFishEye, Close } from "@mui/icons-material";
 
 export default function Square(props) {
