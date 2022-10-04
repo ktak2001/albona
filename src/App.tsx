@@ -6,7 +6,7 @@ import Register from "./Register";
 import NavBar from './NavBar'
 import { useEffect, useState } from "react";
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "./FirebaseConfig.js";
+import { auth } from "./FirebaseConfig";
 import Home from "./Home";
 
 const App = () => {

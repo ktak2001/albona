@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "./FirebaseConfig.js";
+import { auth } from "./FirebaseConfig";
 import { useNavigate } from 'react-router-dom';
 
 const Login = ({user}) => {
@@ -29,16 +29,12 @@ const Login = ({user}) => {
 		<form onSubmit={handleSubmit} >
 			<div className="mb-3">
 				<label className="form-label">Email address</label>
-				<input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" onChange={e => setEmail(e.target.value)} />
+				<input title="email" placeholder="" type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" onChange={e => setEmail(e.target.value)} />
 					<div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
 			</div>
 			<div className="mb-3">
 				<label className="form-label">Password</label>
-				<input type="password" className="form-control" id="exampleInputPassword1" onChange={e => setPass(e.target.value)} />
-			</div>
-			<div className="mb-3 form-check">
-				<input type="checkbox" className="form-check-input" id="exampleCheck1" />
-					<label className="form-check-label" >Check me out</label>
+				<input title="pass" placeholder="" type="password" className="form-control" id="exampleInputPassword1" onChange={e => setPass(e.target.value)} />
 			</div>
 			<button type="submit" className="btn btn-primary">Submit</button>
 		</form>
