@@ -18,6 +18,8 @@ const App = () => {
 		});
 	}, [])
 
+	console.log("user", typeof user);
+	console.log("user", user);
 	return (
 		<div className="container">
 			<BrowserRouter>

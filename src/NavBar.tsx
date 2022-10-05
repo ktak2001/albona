@@ -2,11 +2,10 @@ import * as React from 'react';
 import { AppBar, Box, Toolbar, Typography, Button, IconButton } from '@mui/material'
 import { Menu, AccountCircle } from '@mui/icons-material'
 import { Link } from 'react-router-dom'
-import {getAuth, signOut} from 'firebase/auth'
+import {getAuth, signOut, User} from 'firebase/auth'
 
-export default function NavBar({user}) {
+const NavBar = ({user}: {user: User}) => {
 	const auth = getAuth()
-	console.log('auth', auth)
 	return (
 		<Box sx={{ flexGrow: 1 }}>
 			<AppBar position="static">
@@ -67,3 +66,5 @@ export default function NavBar({user}) {
 		</Box>
 	);
 }
+
+export default NavBar;

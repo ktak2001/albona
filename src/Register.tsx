@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { createUserWithEmailAndPassword, onAuthStateChanged, User } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
 import { collection, addDoc } from "firebase/firestore";
 import { db, auth } from "./FirebaseConfig";
 
-const Register = ({ user }) => {
+const Register = ({ user }: { user: User }) => {
 	const [email, setEmail] = useState("")
 	const [pass, setPass] = useState("")
 	const [name, setName] = useState("")
 	const navigate = useNavigate()
-	const handleSubmit = async (e) => {
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 		try {
 			const userCredential = await createUserWithEmailAndPassword(

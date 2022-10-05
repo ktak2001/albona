@@ -3,41 +3,41 @@ import Board from "./Board";
 import { Grid, Box, IconButton } from "@mui/material";
 import { PanoramaFishEye, Close } from "@mui/icons-material";
 
-export default function Game({user}) {
-	const [states, setStates] = useState({
+// MEMO history[][], null: 0, X: 1, O: 2 , squares => []
+
+interface stateObject {
+	history: number[][]
+	stepNumber: number
+	xIsNext: boolean
+}
+
+export default function Game({user}: {user: any}) {
+	const [states, setStates] = useState<stateObject>({
 		history: [
-			{
-				squares: Array(9).fill(null)
-			}
+			Array(9).fill(0)
 		],
 		stepNumber: 0,
 		xIsNext: true
 	})
-	const [current, setCurrent] = useState({
-		squares: Array(9).fill(null)
-	});
-	const [winner, setWinner] = useState(null);
+	const [current, setCurrent] = useState<number[]>(Array(9).fill(0));
+	const [winner, setWinner] = useState<number>(0);
 	const { history, stepNumber, xIsNext } = states;
 	useEffect(() => {
 		setCurrent(history[stepNumber]);
 	}, [history, stepNumber])
 	useEffect(() => {
-		setWinner(calculateWinner(current.squares));
+		setWinner(calculateWinner(current));
 	}, [current])
 
-	const handleClick= (i) => {
+	const handleClick = (i: number) => {
 		const changedHist = history.slice(0, stepNumber + 1);
-		const squares = changedHist[changedHist.length - 1].squares.slice();
-		if (calculateWinner(squares) || squares[i]) {
+		const squares = changedHist[changedHist.length - 1];
+		if (calculateWinner(squares) > 0 || squares[i] > 0) {
 			return;
 		}
-		squares[i] = xIsNext ? "X" : "O";
+		squares[i] = xIsNext ? 1 : 2;
 		setStates({
-			history: changedHist.concat([
-				{
-					squares
-				}
-			]),
+			history: changedHist.concat([squares]),
 			stepNumber: changedHist.length,
 			xIsNext: !xIsNext
 		});
@@ -45,7 +45,7 @@ export default function Game({user}) {
 
 	const moves = history.map((_, move) => {
 		// console.log("move", move)
-		const jumpTo = (step) => {
+		const jumpTo = (step: number) => {
 			setStates({
 				...states,
 				stepNumber: step,
@@ -61,7 +61,7 @@ export default function Game({user}) {
 			</li>
 		);
 	});
-	const calculateWinner = (squares) => {
+	const calculateWinner = (squares: number[]) => {
 		const lines = [
 			[0, 1, 2],
 			[3, 4, 5],
@@ -74,14 +74,14 @@ export default function Game({user}) {
 		];
 		for (let i = 0; i < lines.length; i++) {
 			const [a, b, c] = lines[i];
-			if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+			if (squares[a] > 0 && squares[a] === squares[b] && squares[a] === squares[c]) {
 				return squares[a];
 			}
 		}
-		return null;
+		return 0;
 	};
 
-	let status;
+	let status: String;
 	if (winner) {
 		status = "Winner: " + winner;
 	} else {
@@ -96,7 +96,7 @@ export default function Game({user}) {
 			</Grid>
 			<Grid xs={12} sx={{ justifyContent: 'center', display: 'flex', paddingBottom: 2 }} item >
 				<Board
-					squares={current.squares}
+					squares={current}
 					onClick={i => handleClick(i)}
 				/>
 			</Grid>

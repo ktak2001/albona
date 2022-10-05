@@ -1,21 +1,24 @@
 import Square from "./Square";
 import React from 'react'
 
-const Board = (props) => {
+export type Props = {
+	squares: Array<number>,
+	onClick: (num: number) => void
+}
+
+const Board = ({squares, onClick}: Props) => {
 	// console.log(props)
-	const renderSquare = i =>
+	const renderSquare = (i: number): JSX.Element =>
 		<Square
-			value={props.squares[i]}
-			onClick={() => props.onClick(i)}
+			value={squares[i]}
+			onClick={() => onClick(i)}
 		/>
 
-	const BoardRow = i => <div className="board-row">
+	const BoardRow = (i: number) => <div className="board-row">
 		{renderSquare(i * 3)}
 		{renderSquare(i * 3 + 1)}
 		{renderSquare(i * 3 + 2)}
 	</div>
-
-	// console.log([...Array(3).keys()])
 
 	return (
 		<div>
